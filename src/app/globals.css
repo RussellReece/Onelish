@@ -1,0 +1,702 @@
+/* ============================================
+   Onelish Design System — globals.css
+   Based on Brand Identity & DESIGN.md
+   ============================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,700&display=swap');
+
+:root {
+  /* === Brand Colors (DESIGN.md §2) === */
+  --confident-ink: #0c2c48;
+  --friendly-yellow: #fcb96e;
+  --expressive-coral: #f3765a;
+  --grounded-teal: #4d8f81;
+  --intelligent-blue: #3a55a5;
+
+  /* === Neutral / Background === */
+  --background: #fcf3e3;          /* warm cream off-white */
+  --background-card: #fffaf3;     /* lighter card bg */
+  --text-light: #fff0e1;          /* brand light text */
+  --white: #ffffff;
+
+  /* === Shapes & Lines (DESIGN.md §3A) === */
+  --border-radius-card: 24px;
+  --border-radius-btn: 50px;      /* capsule buttons */
+  --border-radius-badge: 20px;
+  --border-brand: 3px solid var(--confident-ink);
+  --shadow-neo: 6px 6px 0px var(--confident-ink);  /* neo-brutalism */
+  --shadow-neo-hover: 8px 8px 0px var(--confident-ink);
+
+  /* === Typography === */
+  --font-family: 'Nunito', 'Inter', 'Segoe UI', sans-serif;
+  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-fast: all 0.15s ease;
+}
+
+/* === Reset === */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--confident-ink);
+  font-family: var(--font-family);
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* === Headings — use Confident Ink === */
+h1, h2, h3, h4, h5, h6 {
+  color: var(--confident-ink);
+  margin-bottom: 1rem;
+  font-weight: 800;
+  line-height: 1.3;
+}
+
+h1 { font-size: 3rem; }
+h2 { font-size: 2.25rem; }
+h3 { font-size: 1.5rem; }
+
+p {
+  color: var(--confident-ink);
+  opacity: 0.85;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* ============================================
+   Utilities
+   ============================================ */
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.section {
+  padding: 5rem 0;
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.section-header p {
+  font-size: 1.2rem;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* ============================================
+   Buttons (DESIGN.md §3B)
+   ============================================ */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.85rem 2rem;
+  border-radius: var(--border-radius-btn);
+  font-weight: 700;
+  font-size: 1rem;
+  font-family: var(--font-family);
+  text-align: center;
+  cursor: pointer;
+  border: var(--border-brand);
+  transition: var(--transition);
+  text-decoration: none;
+}
+
+/* Primary: Expressive Coral bg, krem/putih text */
+.btn-primary {
+  background-color: var(--expressive-coral);
+  color: var(--white);
+  box-shadow: 4px 4px 0px var(--confident-ink);
+}
+
+.btn-primary:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0px var(--confident-ink);
+}
+
+.btn-primary:active {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0px var(--confident-ink);
+}
+
+/* Secondary: Friendly Yellow bg, Confident Ink text */
+.btn-secondary {
+  background-color: var(--friendly-yellow);
+  color: var(--confident-ink);
+  box-shadow: 4px 4px 0px var(--confident-ink);
+}
+
+.btn-secondary:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0px var(--confident-ink);
+}
+
+.btn-secondary:active {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0px var(--confident-ink);
+}
+
+/* ============================================
+   Cards (DESIGN.md §3C)
+   ============================================ */
+
+.card {
+  background-color: var(--background-card);
+  border-radius: var(--border-radius-card);
+  padding: 2rem;
+  border: var(--border-brand);
+  box-shadow: var(--shadow-neo);
+  transition: var(--transition);
+}
+
+.card:hover {
+  transform: translate(-3px, -3px);
+  box-shadow: var(--shadow-neo-hover);
+}
+
+/* ============================================
+   Badge / Label
+   ============================================ */
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.35rem 1rem;
+  border-radius: var(--border-radius-badge);
+  font-size: 0.8rem;
+  font-weight: 700;
+  border: 2px solid var(--confident-ink);
+}
+
+.badge-teal {
+  background-color: var(--grounded-teal);
+  color: var(--white);
+}
+
+.badge-blue {
+  background-color: var(--intelligent-blue);
+  color: var(--white);
+}
+
+.badge-coral {
+  background-color: var(--expressive-coral);
+  color: var(--white);
+}
+
+.badge-yellow {
+  background-color: var(--friendly-yellow);
+  color: var(--confident-ink);
+}
+
+/* ============================================
+   Navbar
+   ============================================ */
+
+.navbar {
+  background-color: var(--confident-ink);
+  color: var(--text-light);
+  padding: 0.8rem 0;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  border-bottom: 3px solid var(--friendly-yellow);
+}
+
+.navbar .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav-brand {
+  display: flex;
+  align-items: center;
+}
+
+.nav-brand img {
+  height: 36px;
+  width: auto;
+}
+
+.nav-links {
+  display: flex;
+  gap: 0.5rem;
+  list-style: none;
+  align-items: center;
+}
+
+.nav-links a {
+  font-weight: 700;
+  font-size: 0.95rem;
+  padding: 0.5rem 1rem;
+  border-radius: var(--border-radius-btn);
+  transition: var(--transition);
+  color: var(--text-light);
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+  background-color: var(--friendly-yellow);
+  color: var(--confident-ink);
+}
+
+/* Mobile menu button */
+.nav-toggle {
+  display: none;
+  background: none;
+  border: none;
+  color: var(--text-light);
+  cursor: pointer;
+  padding: 0.5rem;
+  font-size: 1.5rem;
+  line-height: 1;
+}
+
+/* ============================================
+   Hero Section
+   ============================================ */
+
+.hero {
+  background-color: var(--confident-ink);
+  color: var(--text-light);
+  padding: 5rem 0 3rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 3rem;
+}
+
+.hero-text {
+  flex: 1;
+  max-width: 600px;
+}
+
+.hero-text h1 {
+  color: var(--friendly-yellow);
+  font-size: 3rem;
+  margin-bottom: 1.25rem;
+  line-height: 1.2;
+}
+
+.hero-text p {
+  font-size: 1.2rem;
+  color: var(--text-light);
+  opacity: 0.9;
+  margin-bottom: 2rem;
+  line-height: 1.8;
+}
+
+.hero-mascot {
+  flex-shrink: 0;
+  width: 280px;
+  height: 280px;
+  animation: float 4s ease-in-out infinite;
+}
+
+.hero-mascot img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 8px 24px rgba(0,0,0,0.3));
+}
+
+.cta-group {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+/* Wave decoration below hero */
+.hero-wave {
+  position: relative;
+  margin-top: -2px;
+  line-height: 0;
+}
+
+.hero-wave svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* ============================================
+   Feature Section (Home)
+   ============================================ */
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.feature-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 16px;
+  margin-bottom: 1rem;
+  font-size: 1.75rem;
+  border: var(--border-brand);
+}
+
+.feature-icon-coral {
+  background-color: var(--expressive-coral);
+  color: var(--white);
+}
+
+.feature-icon-yellow {
+  background-color: var(--friendly-yellow);
+  color: var(--confident-ink);
+}
+
+.feature-icon-teal {
+  background-color: var(--grounded-teal);
+  color: var(--white);
+}
+
+.feature-icon-blue {
+  background-color: var(--intelligent-blue);
+  color: var(--white);
+}
+
+/* ============================================
+   Grids (General)
+   ============================================ */
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.grid-2 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+}
+
+/* ============================================
+   Game Card specific
+   ============================================ */
+
+.game-thumbnail {
+  width: 100%;
+  height: 160px;
+  border-radius: 16px;
+  background-color: var(--friendly-yellow);
+  border: 2px solid var(--confident-ink);
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
+  overflow: hidden;
+}
+
+.game-type {
+  margin-bottom: 0.75rem;
+}
+
+/* ============================================
+   About Page — Org Structure
+   ============================================ */
+
+.org-card {
+  text-align: center;
+}
+
+.org-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+  border: var(--border-brand);
+}
+
+/* ============================================
+   Footer
+   ============================================ */
+
+.footer {
+  background-color: var(--confident-ink);
+  color: var(--text-light);
+  padding: 3.5rem 0 2rem;
+  margin-top: 4rem;
+  border-top: 4px solid var(--friendly-yellow);
+}
+
+.footer-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 1.5rem;
+}
+
+.footer-logo img {
+  height: 40px;
+  width: auto;
+}
+
+.footer-tagline {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--friendly-yellow);
+}
+
+.footer-links {
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+}
+
+.footer-links a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 2px solid var(--friendly-yellow);
+  color: var(--friendly-yellow);
+  font-size: 1.25rem;
+  transition: var(--transition);
+}
+
+.footer-links a:hover {
+  background-color: var(--friendly-yellow);
+  color: var(--confident-ink);
+  transform: translateY(-3px);
+}
+
+.footer-copy {
+  font-size: 0.85rem;
+  opacity: 0.7;
+  margin-top: 1rem;
+}
+
+.footer h2 {
+  color: var(--friendly-yellow);
+}
+
+.footer p {
+  color: var(--text-light);
+  opacity: 0.8;
+  margin-top: 0.5rem;
+}
+
+/* ============================================
+   Page Header (sub pages)
+   ============================================ */
+
+.page-header {
+  background-color: var(--confident-ink);
+  padding: 3rem 0;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.page-header h1 {
+  color: var(--friendly-yellow);
+  margin-bottom: 0.75rem;
+}
+
+.page-header p {
+  color: var(--text-light);
+  opacity: 0.9;
+  font-size: 1.15rem;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.page-header-mascot {
+  position: absolute;
+  right: 5%;
+  bottom: -10px;
+  width: 120px;
+  opacity: 0.3;
+}
+
+/* ============================================
+   Animations
+   ============================================ */
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-in {
+  animation: fadeInUp 0.6s ease forwards;
+}
+
+/* Stagger delay utility */
+.delay-1 { animation-delay: 0.1s; }
+.delay-2 { animation-delay: 0.2s; }
+.delay-3 { animation-delay: 0.3s; }
+
+/* ============================================
+   Decorative wave (between sections)
+   ============================================ */
+
+.wave-divider {
+  width: 100%;
+  line-height: 0;
+  overflow: hidden;
+}
+
+.wave-divider svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* ============================================
+   Illustration decoration
+   ============================================ */
+
+.illust-decoration {
+  position: absolute;
+  opacity: 0.08;
+  pointer-events: none;
+}
+
+/* ============================================
+   Responsive
+   ============================================ */
+
+@media (max-width: 768px) {
+  /* Navbar mobile */
+  .nav-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .nav-links {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    background-color: var(--confident-ink);
+    padding: 1.5rem;
+    gap: 0.5rem;
+    border-bottom: 3px solid var(--friendly-yellow);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+  }
+
+  .nav-links.open {
+    display: flex;
+  }
+
+  .nav-links a {
+    width: 100%;
+    text-align: center;
+    padding: 0.75rem 1rem;
+  }
+
+  /* Hero mobile */
+  .hero {
+    padding: 3rem 0 2rem;
+  }
+
+  .hero-content {
+    flex-direction: column-reverse;
+    text-align: center;
+  }
+
+  .hero-text h1 {
+    font-size: 2.25rem;
+  }
+
+  .hero-mascot {
+    width: 180px;
+    height: 180px;
+  }
+
+  .cta-group {
+    justify-content: center;
+  }
+
+  /* Typography mobile */
+  h1 { font-size: 2.25rem; }
+  h2 { font-size: 1.75rem; }
+
+  /* Grid mobile */
+  .grid, .features-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .page-header-mascot {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 0 1rem;
+  }
+
+  .hero-text h1 {
+    font-size: 1.85rem;
+  }
+
+  .btn {
+    width: 100%;
+  }
+
+  .cta-group {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
