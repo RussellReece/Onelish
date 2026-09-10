@@ -61,12 +61,12 @@ export default function About() {
           <h1>About Onelish</h1>
           <p>Get to know the team behind your fun English learning journey.</p>
         </div>
-        <img
+        {/* <img
           src="/logo/oniel.svg"
           alt=""
           className="page-header-mascot"
           aria-hidden="true"
-        />
+        /> */}
       </section>
 
       {/* === Wave Divider === */}

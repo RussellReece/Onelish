@@ -51,12 +51,12 @@ export default function Games() {
             interactive minigames!
           </p>
         </div>
-        <img
+        {/* <img
           src="/logo/oniel.svg"
           alt=""
           className="page-header-mascot"
           aria-hidden="true"
-        />
+        /> */}
       </section>
 
       {/* === Wave Divider === */}
@@ -85,11 +85,10 @@ export default function Games() {
                   </div>
                   <div className="game-type">
                     <span
-                      className={`badge ${
-                        game.type === 'Interactive'
+                      className={`badge ${game.type === 'Interactive'
                           ? 'badge-coral'
                           : 'badge-teal'
-                      }`}
+                        }`}
                     >
                       {game.type}
                     </span>

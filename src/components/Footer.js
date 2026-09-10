@@ -7,7 +7,7 @@ export default function Footer() {
         <div className="footer-content">
           <div className="footer-logo">
             <img
-              src="/logo/logowithtextwhite(#fff0e1).svg"
+              src="/../logo/logowithtextwhite(#fff0e1).svg"
               alt="Onelish Logo"
             />
           </div>
@@ -16,7 +16,7 @@ export default function Footer() {
 
           <div className="footer-links">
             <a
-              href="https://instagram.com/onelish.ec"
+              href="https://instagram.com/onelishclub"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Instagram"
@@ -24,14 +24,14 @@ export default function Footer() {
               <InstagramLogo size={22} weight="bold" />
             </a>
             <a
-              href="mailto:onelish@satu.ac.id"
+              href="mailto:satu.englishclub@gmail.com"
               aria-label="Email"
             >
               <EnvelopeSimple size={22} weight="bold" />
             </a>
             <a
-              href="/"
-              aria-label="Website"
+              href="https://www.linkedin.com/company/onelishclub"
+              aria-label="LinkedIn"
             >
               <Globe size={22} weight="bold" />
             </a>
