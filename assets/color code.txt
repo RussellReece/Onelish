@@ -1,0 +1,13 @@
+illust-(darkblue)#0c2c48
+illust-blue(#3a55a5)
+illust-green(#4d8f81)
+illust-orange(#f3765a)
+illust-yellow(#fcb96e)
+
+justlogobolddarkblue(#0a2c48)
+justlogoboldwhite(#ffffff)
+justlogodarkblue(#0a2c48)
+logowithtextdarkblue(#0a2c48)
+logowithtextwhite(#fff0e1)
+onelishtextdarkblue(#0a2c48)
+onelishtextwhite(#fff0e1)
