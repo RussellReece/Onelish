@@ -21,7 +21,7 @@ export default function Navbar() {
       <div className="container">
         <Link href="/" className="nav-brand">
           <img
-            src="/../logo/onelishtextwhite(#fff0e1).svg"
+            src="/logo/logowithtextwhite.svg"
             alt="Onelish Logo"
           />
         </Link>

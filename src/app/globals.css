@@ -14,17 +14,22 @@
   --intelligent-blue: #3a55a5;
 
   /* === Neutral / Background === */
-  --background: #fcf3e3;          /* warm cream off-white */
-  --background-card: #fffaf3;     /* lighter card bg */
-  --text-light: #fff0e1;          /* brand light text */
+  --background: #fcf3e3;
+  /* warm cream off-white */
+  --background-card: #fffaf3;
+  /* lighter card bg */
+  --text-light: #fff0e1;
+  /* brand light text */
   --white: #ffffff;
 
   /* === Shapes & Lines (DESIGN.md §3A) === */
   --border-radius-card: 24px;
-  --border-radius-btn: 50px;      /* capsule buttons */
+  --border-radius-btn: 50px;
+  /* capsule buttons */
   --border-radius-badge: 20px;
   --border-brand: 3px solid var(--confident-ink);
-  --shadow-neo: 6px 6px 0px var(--confident-ink);  /* neo-brutalism */
+  --shadow-neo: 6px 6px 0px var(--confident-ink);
+  /* neo-brutalism */
   --shadow-neo-hover: 8px 8px 0px var(--confident-ink);
 
   /* === Typography === */
@@ -59,16 +64,29 @@ a {
 }
 
 /* === Headings — use Confident Ink === */
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   color: var(--confident-ink);
   margin-bottom: 1rem;
   font-weight: 800;
   line-height: 1.3;
 }
 
-h1 { font-size: 3rem; }
-h2 { font-size: 2.25rem; }
-h3 { font-size: 1.5rem; }
+h1 {
+  font-size: 3rem;
+}
+
+h2 {
+  font-size: 2.25rem;
+}
+
+h3 {
+  font-size: 1.5rem;
+}
 
 p {
   color: var(--confident-ink);
@@ -239,8 +257,11 @@ img {
 }
 
 .nav-brand img {
-  height: 36px;
-  width: auto;
+  width: 70px;
+  height: auto;
+  max-width: 100%;
+  transform: scale(2.5);
+  transform-origin: left center;
 }
 
 .nav-links {
@@ -327,7 +348,7 @@ img {
   width: 100%;
   height: 100%;
   object-fit: contain;
-  filter: drop-shadow(0 8px 24px rgba(0,0,0,0.3));
+  filter: drop-shadow(0 8px 24px rgba(0, 0, 0, 0.3));
 }
 
 .cta-group {
@@ -472,6 +493,7 @@ img {
 .footer-logo img {
   height: 40px;
   width: auto;
+  transform: scale(5);
 }
 
 .footer-tagline {
@@ -559,8 +581,15 @@ img {
    ============================================ */
 
 @keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-12px); }
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-12px);
+  }
 }
 
 @keyframes fadeInUp {
@@ -568,6 +597,7 @@ img {
     opacity: 0;
     transform: translateY(20px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -579,9 +609,17 @@ img {
 }
 
 /* Stagger delay utility */
-.delay-1 { animation-delay: 0.1s; }
-.delay-2 { animation-delay: 0.2s; }
-.delay-3 { animation-delay: 0.3s; }
+.delay-1 {
+  animation-delay: 0.1s;
+}
+
+.delay-2 {
+  animation-delay: 0.2s;
+}
+
+.delay-3 {
+  animation-delay: 0.3s;
+}
 
 /* ============================================
    Decorative wave (between sections)
@@ -614,6 +652,7 @@ img {
    ============================================ */
 
 @media (max-width: 768px) {
+
   /* Navbar mobile */
   .nav-toggle {
     display: flex;
@@ -632,7 +671,7 @@ img {
     padding: 1.5rem;
     gap: 0.5rem;
     border-bottom: 3px solid var(--friendly-yellow);
-    box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
   }
 
   .nav-links.open {
@@ -669,11 +708,17 @@ img {
   }
 
   /* Typography mobile */
-  h1 { font-size: 2.25rem; }
-  h2 { font-size: 1.75rem; }
+  h1 {
+    font-size: 2.25rem;
+  }
+
+  h2 {
+    font-size: 1.75rem;
+  }
 
   /* Grid mobile */
-  .grid, .features-grid {
+  .grid,
+  .features-grid {
     grid-template-columns: 1fr;
   }
 

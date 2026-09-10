@@ -27,7 +27,7 @@ export default function Home() {
 
             <div className="hero-mascot">
               <img
-                src="/logo/oniel.svg"
+                src="/logo/logoQuote.svg"
                 alt="Oniel - Mascot Onelish"
               />
             </div>

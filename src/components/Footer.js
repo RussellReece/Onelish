@@ -7,7 +7,7 @@ export default function Footer() {
         <div className="footer-content">
           <div className="footer-logo">
             <img
-              src="/../logo/logowithtextwhite(#fff0e1).svg"
+              src="/../logo/logowithtextwhite.svg"
               alt="Onelish Logo"
             />
           </div>
