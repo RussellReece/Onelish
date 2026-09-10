@@ -745,3 +745,158 @@ img {
     align-items: stretch;
   }
 }
+
+/* ============================================
+   Modal / Popup (Games Lobby)
+   ============================================ */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(12, 44, 72, 0.6);
+  /* Confident Ink with opacity */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  padding: 1rem;
+  backdrop-filter: blur(4px);
+}
+
+.modal-content {
+  background-color: var(--background-card);
+  border: var(--border-brand);
+  border-radius: var(--border-radius-card);
+  padding: 2.5rem;
+  width: 100%;
+  max-width: 500px;
+  box-shadow: var(--shadow-neo);
+  position: relative;
+  animation: fadeInUp 0.3s ease forwards;
+}
+
+.modal-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: none;
+  border: none;
+  color: var(--confident-ink);
+  cursor: pointer;
+  padding: 0.5rem;
+  transition: var(--transition-fast);
+}
+
+.modal-close:hover {
+  transform: scale(1.1);
+  color: var(--expressive-coral);
+}
+
+.modal-badges {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.5rem;
+  margin-top: 1rem;
+}
+
+/* ============================================
+   Image Zoom & Lightbox
+   ============================================ */
+.image-zoom-container {
+  position: relative;
+  width: 100%;
+  max-height: 250px;
+  border-radius: 16px;
+  border: 2px solid var(--confident-ink);
+  margin-bottom: 1rem;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.image-zoom-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.4s ease;
+}
+
+/* Overlay gelap & tombol zoom yang muncul saat di-hover */
+.image-zoom-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(12, 44, 72, 0.6);
+  /* Confident Ink transparan */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  color: var(--white);
+}
+
+.image-zoom-container:hover .image-zoom-overlay {
+  opacity: 1;
+}
+
+.image-zoom-container:hover img {
+  transform: scale(1.05);
+  /* Gambar sedikit membesar di dalam frame */
+}
+
+/* Pop-up Layar Penuh untuk Gambar */
+.zoom-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.85);
+  /* Latar hitam gelap */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  /* Paling depan, menutupi pop-up sebelumnya */
+  padding: 2rem;
+  backdrop-filter: blur(5px);
+}
+
+.zoom-modal-content {
+  position: relative;
+  max-width: 90vw;
+  max-height: 90vh;
+}
+
+.zoom-modal-content img {
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 90vh;
+  border-radius: 12px;
+  border: 3px solid var(--friendly-yellow);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+}
+
+.zoom-close {
+  position: absolute;
+  top: -45px;
+  right: -10px;
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  padding: 0.5rem;
+  transition: transform 0.2s ease;
+}
+
+.zoom-close:hover {
+  transform: scale(1.2);
+  color: var(--expressive-coral);
+}
