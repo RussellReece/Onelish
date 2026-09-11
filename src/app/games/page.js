@@ -1,62 +1,29 @@
-import { GameController, PuzzlePiece, Brain } from '@phosphor-icons/react/dist/ssr';
+import { fetchOnelishData } from '@/lib/api';
+import GamesClient from './GamesClient';
 
 export const metadata = {
   title: "Games Lobby | Onelish",
-  description:
-    "Explore the boardgames and interactive minigames available at Onelish.",
+  description: "Play interactive PC minigames or explore our offline boardgame collection.",
 };
 
-const placeholderGames = [
-  {
-    id: 'G1',
-    name: 'Spelling Bee Dash',
-    type: 'Interactive',
-    description: 'A fast-paced spelling game to improve your vocabulary.',
-    icon: Brain,
-    iconColor: 'feature-icon-coral',
-    btnClass: 'btn-primary',
-    btnText: 'Play Game',
-  },
-  {
-    id: 'G2',
-    name: 'Scrabble',
-    type: 'Boardgame',
-    description: 'Classic word building game. Available at our stand.',
-    icon: PuzzlePiece,
-    iconColor: 'feature-icon-yellow',
-    btnClass: 'btn-secondary',
-    btnText: 'View Details',
-  },
-  {
-    id: 'G3',
-    name: 'Grammar Jeopardy',
-    type: 'Interactive',
-    description: 'Test your grammar skills in a fun quiz format.',
-    icon: GameController,
-    iconColor: 'feature-icon-teal',
-    btnClass: 'btn-primary',
-    btnText: 'Play Game',
-  },
-];
+export default async function Games() {
+  // Mengambil data dari Google Sheets melalui API yang ada di folder lib
+  const data = await fetchOnelishData();
 
-export default function Games() {
+  // Mengambil sheet "Games"
+  // Jika API gagal, sedang loading, atau kosong, sediakan array kosong sebagai fallback
+  const physicalGames = data?.Games || [];
+
   return (
     <div>
-      {/* === Page Header with Mascot (DESIGN.md §3D) === */}
+      {/* === Page Header === */}
       <section className="page-header">
         <div className="container">
           <h1>Games Lobby</h1>
           <p>
-            The Playground — Discover our collection of boardgames and
-            interactive minigames!
+            The Playground — Play our interactive web minigames or browse our offline boardgame collection!
           </p>
         </div>
-        {/* <img
-          src="/logo/oniel.svg"
-          alt=""
-          className="page-header-mascot"
-          aria-hidden="true"
-        /> */}
       </section>
 
       {/* === Wave Divider === */}
@@ -69,42 +36,8 @@ export default function Games() {
         </svg>
       </div>
 
-      {/* === Games Grid === */}
-      <section className="section">
-        <div className="container">
-          <div className="grid">
-            {placeholderGames.map((game, i) => {
-              const Icon = game.icon;
-              return (
-                <div
-                  className={`card animate-in delay-${(i % 3) + 1}`}
-                  key={game.id}
-                >
-                  <div className="game-thumbnail">
-                    <Icon size={48} weight="duotone" />
-                  </div>
-                  <div className="game-type">
-                    <span
-                      className={`badge ${game.type === 'Interactive'
-                          ? 'badge-coral'
-                          : 'badge-teal'
-                        }`}
-                    >
-                      {game.type}
-                    </span>
-                  </div>
-                  <h3>{game.name}</h3>
-                  <p style={{ marginBottom: '1.25rem' }}>{game.description}</p>
-                  <button className={`btn ${game.btnClass}`} style={{ width: '100%' }}>
-                    <GameController size={18} weight="bold" />
-                    {game.btnText}
-                  </button>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      </section>
+      {/* Memanggil Client Component (GamesClient.js) dan mengirimkan data dari Spreadsheet */}
+      <GamesClient physicalGames={physicalGames} />
     </div>
   );
 }
