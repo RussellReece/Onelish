@@ -4,28 +4,10 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { ArrowLeft, CheckCircle, ArrowCounterClockwise } from '@phosphor-icons/react';
 
-// Kalimat yang jauh lebih sulit (tanpa tanda baca agar fokus pada tata bahasa)
 const sentences = [
-    {
-        original: "Mastering a new language requires consistent practice and dedication",
-        scrambled: ["practice", "a", "requires", "dedication", "language", "Mastering", "consistent", "new", "and"]
-    },
-    {
-        original: "Effective communication is essential for building strong professional relationships",
-        scrambled: ["essential", "communication", "relationships", "Effective", "building", "strong", "for", "is", "professional"]
-    },
-    {
-        original: "The rapid advancement of technology has transformed our daily lives",
-        scrambled: ["daily", "of", "has", "advancement", "The", "technology", "transformed", "lives", "rapid", "our"]
-    },
-    {
-        original: "Overcoming the fear of public speaking builds immense self confidence",
-        scrambled: ["fear", "speaking", "the", "builds", "confidence", "public", "immense", "Overcoming", "of", "self"]
-    },
-    {
-        original: "Collaborative teamwork often leads to more innovative and sustainable solutions",
-        scrambled: ["leads", "sustainable", "often", "innovative", "more", "teamwork", "to", "Collaborative", "solutions", "and"]
-    }
+    { original: "Learning English is very fun", scrambled: ["fun", "Learning", "very", "is", "English"] },
+    { original: "We play boardgames every week", scrambled: ["every", "We", "boardgames", "play", "week"] },
+    { original: "Speak boldly and think sharply", scrambled: ["think", "boldly", "Speak", "sharply", "and"] }
 ];
 
 export default function SentenceScramble() {
@@ -39,9 +21,7 @@ export default function SentenceScramble() {
     }, [level]);
 
     const loadLevel = () => {
-        // Mengacak ulang array scrambled agar posisinya selalu berbeda tiap di-refresh
-        const shuffledBank = [...sentences[level].scrambled].sort(() => Math.random() - 0.5);
-        setBank(shuffledBank);
+        setBank([...sentences[level].scrambled]);
         setAnswer([]);
         setIsCorrect(false);
     };
@@ -63,7 +43,7 @@ export default function SentenceScramble() {
         if (currentAnswer === sentences[level].original) {
             setIsCorrect(true);
         } else {
-            alert("Oops! The grammar is not quite right. Try arranging it differently.");
+            alert("Oops! That's not quite right. Try again!");
         }
     };
 
@@ -76,11 +56,11 @@ export default function SentenceScramble() {
 
                 <div className="card" style={{ textAlign: 'center' }}>
                     <h2 style={{ color: 'var(--expressive-coral)' }}>Sentence Scramble</h2>
-                    <p>Level {level + 1} of {sentences.length} — <strong>Hard Mode</strong></p>
+                    <p>Level {level + 1} of {sentences.length}</p>
                     <hr style={{ margin: '1.5rem 0', borderColor: 'var(--friendly-yellow)' }} />
 
                     {/* Area Jawaban */}
-                    <div style={{ minHeight: '80px', padding: '1rem', border: '3px dashed var(--confident-ink)', borderRadius: '16px', marginBottom: '2rem', display: 'flex', gap: '0.5rem', flexWrap: 'wrap', justifyContent: 'center' }}>
+                    <div style={{ minHeight: '60px', padding: '1rem', border: '3px dashed var(--confident-ink)', borderRadius: '16px', marginBottom: '2rem', display: 'flex', gap: '0.5rem', flexWrap: 'wrap', justifyContent: 'center' }}>
                         {answer.length === 0 && <span style={{ opacity: 0.5 }}>Click words below to build the sentence...</span>}
                         {answer.map((word, i) => (
                             <button key={i} onClick={() => moveToBank(word, i)} className="btn btn-secondary" style={{ padding: '0.5rem 1rem' }}>
@@ -105,7 +85,7 @@ export default function SentenceScramble() {
                     ) : (
                         <div style={{ backgroundColor: 'var(--grounded-teal)', color: 'white', padding: '1rem', borderRadius: '16px' }}>
                             <h3 style={{ color: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem' }}>
-                                <CheckCircle size={28} /> Brilliant!
+                                <CheckCircle size={28} /> Perfect!
                             </h3>
                             {level < sentences.length - 1 ? (
                                 <button className="btn btn-secondary" onClick={() => setLevel(level + 1)} style={{ marginTop: '1rem' }}>Next Level</button>
