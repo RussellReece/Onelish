@@ -15,9 +15,14 @@ export default function Home() {
                 It&apos;s learning, but make it fun!
               </p>
               <div className="cta-group">
-                <Link href="/events" className="btn btn-primary">
+                <a
+                  href="https://forms.gle/Uqj5MMnpoZRrSvzb7"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn btn-primary"
+                >
                   Join Onelish
-                </Link>
+                </a>
                 <Link href="/games" className="btn btn-secondary">
                   <GameController size={20} weight="bold" />
                   Play Now
