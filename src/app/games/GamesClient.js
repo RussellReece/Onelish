@@ -1,125 +1,198 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Link from 'next/link';
-import { ArrowLeft, CheckCircle, ArrowCounterClockwise } from '@phosphor-icons/react';
+import {
+    Keyboard,
+    MusicNotes,
+    Cards,
+    DiceThree,
+    Info,
+    X,
+    Users,
+    Timer,
+    MagnifyingGlassPlus,
+    GameController
+} from '@phosphor-icons/react';
 
-// Kalimat yang jauh lebih sulit (tanpa tanda baca agar fokus pada tata bahasa)
-const sentences = [
+// Data untuk Game Digital (Bisa dimainkan di Web PC/Laptop)
+const digitalGames = [
     {
-        original: "Mastering a new language requires consistent practice and dedication",
-        scrambled: ["practice", "a", "requires", "dedication", "language", "Mastering", "consistent", "new", "and"]
+        id: 'D1',
+        name: 'Sentence Scramble',
+        type: 'Interactive',
+        description: 'Drag and drop scattered words to build the perfect sentence before the timer runs out!',
+        icon: Keyboard,
+        btnClass: 'btn-primary',
+        btnText: 'Play Now',
+        link: '/games/sentence-scramble',
     },
     {
-        original: "Effective communication is essential for building strong professional relationships",
-        scrambled: ["essential", "communication", "relationships", "Effective", "building", "strong", "for", "is", "professional"]
+        id: 'D2',
+        name: 'Lyric Master',
+        type: 'Interactive',
+        description: 'Listen to the song snippet and type the missing English lyrics as fast as you can.',
+        icon: MusicNotes,
+        btnClass: 'btn-primary',
+        btnText: 'Play Now',
+        link: '/games/lyric-master',
     },
     {
-        original: "The rapid advancement of technology has transformed our daily lives",
-        scrambled: ["daily", "of", "has", "advancement", "The", "technology", "transformed", "lives", "rapid", "our"]
+        id: 'D3',
+        name: 'Vocab Memory Flip',
+        type: 'Interactive',
+        description: 'Click and flip cards to match English words with their correct meanings or pictures.',
+        icon: Cards,
+        btnClass: 'btn-primary',
+        btnText: 'Play Now',
+        link: '/games/vocab-memory',
     },
-    {
-        original: "Overcoming the fear of public speaking builds immense self confidence",
-        scrambled: ["fear", "speaking", "the", "builds", "confidence", "public", "immense", "Overcoming", "of", "self"]
-    },
-    {
-        original: "Collaborative teamwork often leads to more innovative and sustainable solutions",
-        scrambled: ["leads", "sustainable", "often", "innovative", "more", "teamwork", "to", "Collaborative", "solutions", "and"]
-    }
 ];
 
-export default function SentenceScramble() {
-    const [level, setLevel] = useState(0);
-    const [bank, setBank] = useState([]);
-    const [answer, setAnswer] = useState([]);
-    const [isCorrect, setIsCorrect] = useState(false);
+export default function GamesClient({ physicalGames }) {
+    // State untuk mengontrol Pop-up (Modal) Detail Game dan Fitur Zoom Gambar
+    const [selectedGame, setSelectedGame] = useState(null);
+    const [zoomedImage, setZoomedImage] = useState(null);
 
-    useEffect(() => {
-        loadLevel();
-    }, [level]);
-
-    const loadLevel = () => {
-        // Mengacak ulang array scrambled agar posisinya selalu berbeda tiap di-refresh
-        const shuffledBank = [...sentences[level].scrambled].sort(() => Math.random() - 0.5);
-        setBank(shuffledBank);
-        setAnswer([]);
-        setIsCorrect(false);
-    };
-
-    const moveToAnswer = (word, index) => {
-        if (isCorrect) return;
-        setBank(bank.filter((_, i) => i !== index));
-        setAnswer([...answer, word]);
-    };
-
-    const moveToBank = (word, index) => {
-        if (isCorrect) return;
-        setAnswer(answer.filter((_, i) => i !== index));
-        setBank([...bank, word]);
-    };
-
-    const checkAnswer = () => {
-        const currentAnswer = answer.join(" ");
-        if (currentAnswer === sentences[level].original) {
-            setIsCorrect(true);
-        } else {
-            alert("Oops! The grammar is not quite right. Try arranging it differently.");
-        }
-    };
+    const closeModal = () => setSelectedGame(null);
 
     return (
-        <div style={{ padding: '2rem 0', minHeight: '80vh' }}>
-            <div className="container" style={{ maxWidth: '800px' }}>
-                <Link href="/games" className="badge badge-teal" style={{ marginBottom: '2rem' }}>
-                    <ArrowLeft weight="bold" /> Back to Lobby
-                </Link>
-
-                <div className="card" style={{ textAlign: 'center' }}>
-                    <h2 style={{ color: 'var(--expressive-coral)' }}>Sentence Scramble</h2>
-                    <p>Level {level + 1} of {sentences.length} — <strong>Hard Mode</strong></p>
-                    <hr style={{ margin: '1.5rem 0', borderColor: 'var(--friendly-yellow)' }} />
-
-                    {/* Area Jawaban */}
-                    <div style={{ minHeight: '80px', padding: '1rem', border: '3px dashed var(--confident-ink)', borderRadius: '16px', marginBottom: '2rem', display: 'flex', gap: '0.5rem', flexWrap: 'wrap', justifyContent: 'center' }}>
-                        {answer.length === 0 && <span style={{ opacity: 0.5 }}>Click words below to build the sentence...</span>}
-                        {answer.map((word, i) => (
-                            <button key={i} onClick={() => moveToBank(word, i)} className="btn btn-secondary" style={{ padding: '0.5rem 1rem' }}>
-                                {word}
-                            </button>
-                        ))}
+        <div>
+            {/* === SECTION 1: Interactive Web Games === */}
+            <section className="section">
+                <div className="container">
+                    <div className="section-header" style={{ textAlign: 'left', marginBottom: '2rem' }}>
+                        <h2>Interactive Web Games</h2>
+                        <p style={{ margin: '0' }}>Optimized for your PC/Laptop. Test your English skills right here!</p>
                     </div>
 
-                    {/* Area Kata Acak */}
-                    <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', justifyContent: 'center', marginBottom: '2rem' }}>
-                        {bank.map((word, i) => (
-                            <button key={i} onClick={() => moveToAnswer(word, i)} className="btn btn-primary" style={{ padding: '0.5rem 1rem' }}>
-                                {word}
-                            </button>
-                        ))}
+                    <div className="grid">
+                        {digitalGames.map((game, i) => {
+                            const Icon = game.icon;
+                            return (
+                                <div
+                                    className={`card animate-in delay-${(i % 3) + 1}`}
+                                    key={game.id}
+                                >
+                                    <div className="game-thumbnail">
+                                        <Icon size={48} weight="duotone" />
+                                    </div>
+                                    <div className="game-type">
+                                        <span
+                                            className={`badge ${game.type === 'Interactive' ? 'badge-coral' : 'badge-teal'
+                                                }`}
+                                        >
+                                            {game.type}
+                                        </span>
+                                    </div>
+                                    <h3>{game.name}</h3>
+                                    <p style={{ marginBottom: '1.25rem' }}>{game.description}</p>
+                                    <Link
+                                        href={game.link}
+                                        className={`btn ${game.btnClass}`}
+                                        style={{ width: '100%', display: 'inline-flex', justifyContent: 'center' }}
+                                    >
+                                        <GameController size={18} weight="bold" />
+                                        {game.btnText}
+                                    </Link>
+                                </div>
+                            );
+                        })}
                     </div>
-
-                    {!isCorrect ? (
-                        <button className="btn btn-primary" onClick={checkAnswer} disabled={bank.length > 0} style={{ width: '100%' }}>
-                            Check Answer
-                        </button>
-                    ) : (
-                        <div style={{ backgroundColor: 'var(--grounded-teal)', color: 'white', padding: '1rem', borderRadius: '16px' }}>
-                            <h3 style={{ color: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem' }}>
-                                <CheckCircle size={28} /> Brilliant!
-                            </h3>
-                            {level < sentences.length - 1 ? (
-                                <button className="btn btn-secondary" onClick={() => setLevel(level + 1)} style={{ marginTop: '1rem' }}>Next Level</button>
-                            ) : (
-                                <p style={{ marginTop: '1rem', fontWeight: 'bold' }}>You have completed all levels!</p>
-                            )}
-                        </div>
-                    )}
-
-                    <button onClick={loadLevel} className="btn" style={{ marginTop: '1rem', border: 'none', background: 'transparent', color: 'var(--confident-ink)' }}>
-                        <ArrowCounterClockwise /> Reset
-                    </button>
                 </div>
-            </div>
+            </section>
+
+            {/* === SECTION 2: Physical Boardgames (Data dari Spreadsheet) === */}
+            <section className="section" style={{ paddingTop: '0' }}>
+                <div className="container">
+                    <div className="section-header" style={{ textAlign: 'left', marginBottom: '2rem', marginTop: '2rem' }}>
+                        <h2>Offline Boardgame Station</h2>
+                        <p style={{ margin: '0' }}>Discover the games you can play with us during our weekly campus gatherings!</p>
+                    </div>
+
+                    <div className="grid">
+                        {physicalGames.map((game, i) => {
+                            return (
+                                <div className={`card animate-in delay-${(i % 3) + 1}`} key={game.Game_ID}>
+                                    <div className="game-thumbnail">
+                                        <DiceThree size={48} weight="duotone" />
+                                    </div>
+                                    <div className="game-type">
+                                        <span className="badge badge-teal">Boardgame</span>
+                                    </div>
+                                    <h3>{game.Nama}</h3>
+                                    <p style={{ marginBottom: '1.25rem' }}>
+                                        {/* Menampilkan deskripsi singkat (potong jika terlalu panjang) */}
+                                        {game.Deskripsi?.length > 80 ? game.Deskripsi.substring(0, 80) + '...' : game.Deskripsi}
+                                    </p>
+                                    <button
+                                        className="btn btn-secondary"
+                                        style={{ width: '100%' }}
+                                        onClick={() => setSelectedGame(game)}
+                                    >
+                                        <Info size={18} weight="bold" />
+                                        View Details
+                                    </button>
+                                </div>
+                            );
+                        })}
+                    </div>
+                </div>
+            </section>
+
+            {/* === MODAL / POP-UP: Detail Boardgame === */}
+            {selectedGame && (
+                <div className="modal-overlay" onClick={closeModal}>
+                    <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+                        <button className="modal-close" onClick={closeModal}>
+                            <X size={24} weight="bold" />
+                        </button>
+
+                        <h2 style={{ marginBottom: '1rem' }}>{selectedGame.Nama}</h2>
+
+                        {/* BAGIAN GAMBAR DENGAN FITUR HOVER & ZOOM */}
+                        {selectedGame.Thumbnail_URL && (
+                            <div
+                                className="image-zoom-container"
+                                onClick={() => setZoomedImage(selectedGame.Thumbnail_URL)}
+                            >
+                                <img
+                                    src={selectedGame.Thumbnail_URL}
+                                    alt={`Thumbnail untuk ${selectedGame.Nama}`}
+                                />
+                                <div className="image-zoom-overlay">
+                                    <MagnifyingGlassPlus size={56} weight="duotone" />
+                                </div>
+                            </div>
+                        )}
+
+                        <div className="modal-badges" style={{ marginTop: '0' }}>
+                            <span className="badge badge-yellow">
+                                <Users size={16} weight="bold" />
+                                {selectedGame.Players}
+                            </span>
+                            <span className="badge badge-blue">
+                                <Timer size={16} weight="bold" />
+                                {selectedGame.Duration}
+                            </span>
+                        </div>
+
+                        <p style={{ lineHeight: '1.8' }}>{selectedGame.Deskripsi}</p>
+                    </div>
+                </div>
+            )}
+
+            {/* === MODAL KHUSUS ZOOM GAMBAR (Layar Penuh) === */}
+            {zoomedImage && (
+                <div className="zoom-modal-overlay" onClick={() => setZoomedImage(null)}>
+                    <div className="zoom-modal-content" onClick={(e) => e.stopPropagation()}>
+                        <button className="zoom-close" onClick={() => setZoomedImage(null)}>
+                            <X size={36} weight="bold" />
+                        </button>
+                        <img src={zoomedImage} alt="Expanded Boardgame" />
+                    </div>
+                </div>
+            )}
         </div>
     );
 }
