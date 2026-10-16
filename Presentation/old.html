@@ -1,0 +1,971 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Onelish 2026 Presentation</title>
+  
+  <!-- Nunito & Phosphor Icons Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400;1,700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+  <style>
+    :root {
+      /* Onelish Brand Palette */
+      --confident-ink: #0c2c48;
+      --friendly-yellow: #fcb96e;
+      --expressive-coral: #f3765a;
+      --grounded-teal: #4d8f81;
+      --intelligent-blue: #3a55a5;
+      --background: #fcf3e3;
+      --background-card: #fffaf3;
+      --white: #ffffff;
+
+      --border-brand: 3px solid var(--confident-ink);
+      --border-brand-thick: 4px solid var(--confident-ink);
+      --shadow-neo: 6px 6px 0px var(--confident-ink);
+      --shadow-neo-lg: 8px 8px 0px var(--confident-ink);
+      --shadow-neo-sm: 4px 4px 0px var(--confident-ink);
+      --border-radius-card: 24px;
+      --border-radius-btn: 50px;
+      --border-radius-badge: 20px;
+      --font-family: 'Nunito', system-ui, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      user-select: none;
+    }
+
+    body {
+      font-family: var(--font-family);
+      background-color: var(--confident-ink);
+      color: var(--confident-ink);
+      overflow: hidden;
+      height: 100vh;
+      width: 100vw;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Deck Container */
+    #deck-wrapper {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      max-width: 1366px;
+      max-height: 768px;
+      aspect-ratio: 16 / 9;
+      background: var(--background);
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4), 0 0 0 4px var(--friendly-yellow);
+      display: flex;
+      flex-direction: column;
+    }
+
+    @media (max-width: 1400px) or (max-height: 800px) {
+      #deck-wrapper {
+        border-radius: 0;
+        max-width: 100vw;
+        max-height: 100vh;
+        box-shadow: none;
+      }
+    }
+
+    /* Top Presentation Bar */
+    .pres-header {
+      background-color: var(--confident-ink);
+      color: var(--white);
+      padding: 0.65rem 1.8rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 3px solid var(--friendly-yellow);
+      z-index: 20;
+    }
+
+    .pres-header .logo-area {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .pres-header img.logo-img {
+      height: 38px;
+      width: auto;
+    }
+
+    .pres-header .tag-badge {
+      background-color: var(--friendly-yellow);
+      color: var(--confident-ink);
+      font-weight: 800;
+      font-size: 0.75rem;
+      padding: 0.2rem 0.75rem;
+      border-radius: 50px;
+      border: 2px solid var(--confident-ink);
+    }
+
+    .header-controls {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .nav-icon-btn {
+      background: var(--background-card);
+      border: 2px solid var(--confident-ink);
+      color: var(--confident-ink);
+      border-radius: 50%;
+      width: 34px;
+      height: 34px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 1.1rem;
+      font-weight: bold;
+      transition: all 0.15s ease;
+      box-shadow: 2px 2px 0px var(--confident-ink);
+    }
+
+    .nav-icon-btn:hover {
+      transform: translate(-1px, -1px);
+      box-shadow: 3px 3px 0px var(--confident-ink);
+      background: var(--friendly-yellow);
+    }
+
+    /* Slide Stage */
+    .slide-viewport {
+      position: relative;
+      flex: 1;
+      overflow: hidden;
+      display: flex;
+    }
+
+    .slide {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 2.5rem 3.5rem;
+      transition: opacity 0.35s ease, transform 0.35s ease;
+      transform: scale(0.97) translateY(12px);
+      background-color: var(--background);
+      overflow-y: auto;
+    }
+
+    .slide.active {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+      transform: scale(1) translateY(0);
+      z-index: 5;
+    }
+
+    /* Bottom Control Bar */
+    .pres-footer {
+      background-color: var(--confident-ink);
+      color: var(--white);
+      padding: 0.65rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 3px solid var(--friendly-yellow);
+      z-index: 20;
+    }
+
+    .progress-track {
+      flex: 1;
+      max-width: 400px;
+      height: 10px;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 20px;
+      margin: 0 1.5rem;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .progress-bar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--friendly-yellow), var(--expressive-coral));
+      border-radius: 20px;
+      transition: width 0.3s ease;
+    }
+
+    .slide-counter {
+      font-weight: 800;
+      font-size: 0.9rem;
+      color: var(--friendly-yellow);
+      letter-spacing: 0.5px;
+    }
+
+    .footer-btns {
+      display: flex;
+      gap: 0.75rem;
+      align-items: center;
+    }
+
+    /* Neo-Brutalist Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.6rem 1.4rem;
+      border-radius: var(--border-radius-btn);
+      font-weight: 800;
+      font-size: 0.95rem;
+      font-family: var(--font-family);
+      cursor: pointer;
+      border: var(--border-brand);
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: var(--shadow-neo-sm);
+      text-decoration: none;
+    }
+
+    .btn:hover {
+      transform: translate(-2px, -2px);
+      box-shadow: var(--shadow-neo);
+    }
+
+    .btn:active {
+      transform: translate(2px, 2px);
+      box-shadow: 1px 1px 0px var(--confident-ink);
+    }
+
+    .btn-primary {
+      background-color: var(--expressive-coral);
+      color: var(--white);
+    }
+
+    .btn-secondary {
+      background-color: var(--friendly-yellow);
+      color: var(--confident-ink);
+    }
+
+    .btn-teal {
+      background-color: var(--grounded-teal);
+      color: var(--white);
+    }
+
+    .btn-blue {
+      background-color: var(--intelligent-blue);
+      color: var(--white);
+    }
+
+    .btn-sm {
+      padding: 0.45rem 1rem;
+      font-size: 0.85rem;
+    }
+
+    /* Cards */
+    .card {
+      background-color: var(--background-card);
+      border-radius: var(--border-radius-card);
+      padding: 1.5rem;
+      border: var(--border-brand);
+      box-shadow: var(--shadow-neo);
+      transition: all 0.25s ease;
+    }
+
+    .card:hover {
+      transform: translate(-3px, -3px);
+      box-shadow: var(--shadow-neo-lg);
+    }
+
+    /* Badges */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.35rem 0.9rem;
+      border-radius: var(--border-radius-badge);
+      font-size: 0.8rem;
+      font-weight: 800;
+      border: 2px solid var(--confident-ink);
+      box-shadow: 2px 2px 0px var(--confident-ink);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .badge-coral { background-color: var(--expressive-coral); color: var(--white); }
+    .badge-yellow { background-color: var(--friendly-yellow); color: var(--confident-ink); }
+    .badge-teal { background-color: var(--grounded-teal); color: var(--white); }
+    .badge-blue { background-color: var(--intelligent-blue); color: var(--white); }
+
+    /* Mascot & Typography Styling */
+    h1 {
+      font-size: 2.8rem;
+      font-weight: 900;
+      line-height: 1.15;
+      color: var(--confident-ink);
+      margin-bottom: 0.75rem;
+    }
+
+    h2 {
+      font-size: 2.2rem;
+      font-weight: 900;
+      line-height: 1.2;
+      color: var(--confident-ink);
+      margin-bottom: 0.5rem;
+    }
+
+    h3 {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--confident-ink);
+      margin-bottom: 0.35rem;
+    }
+
+    p {
+      color: var(--confident-ink);
+      font-size: 1.05rem;
+      line-height: 1.55;
+      font-weight: 600;
+      opacity: 0.9;
+    }
+
+    .highlight-coral { color: var(--expressive-coral); }
+    .highlight-teal { color: var(--grounded-teal); }
+    .highlight-blue { color: var(--intelligent-blue); }
+
+    /* Slide Layout Grids */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2.5rem;
+      align-items: center;
+      height: 100%;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      align-items: stretch;
+    }
+
+    .grid-4 {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.2rem;
+    }
+
+    .grid-6 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: repeat(2, 1fr);
+      gap: 1.25rem;
+    }
+
+    .hero-bubble {
+      display: inline-block;
+      background: var(--friendly-yellow);
+      border: var(--border-brand);
+      box-shadow: var(--shadow-neo-sm);
+      border-radius: 50px;
+      padding: 0.35rem 1.1rem;
+      font-size: 0.85rem;
+      font-weight: 800;
+      margin-bottom: 1rem;
+    }
+
+    .feature-icon-box {
+      width: 54px;
+      height: 54px;
+      border-radius: 16px;
+      border: var(--border-brand);
+      box-shadow: 3px 3px 0px var(--confident-ink);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.6rem;
+      margin-bottom: 1rem;
+    }
+
+    .bg-coral { background-color: var(--expressive-coral); color: var(--white); }
+    .bg-yellow { background-color: var(--friendly-yellow); color: var(--confident-ink); }
+    .bg-teal { background-color: var(--grounded-teal); color: var(--white); }
+    .bg-blue { background-color: var(--intelligent-blue); color: var(--white); }
+
+    .stat-number {
+      font-size: 2.5rem;
+      font-weight: 900;
+      color: var(--confident-ink);
+      line-height: 1;
+      margin-bottom: 0.3rem;
+    }
+
+    /* Wave divider decoration */
+    .wave-bg {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 60px;
+      pointer-events: none;
+      opacity: 0.35;
+    }
+
+    /* Decorative stickers */
+    .sticker {
+      position: absolute;
+      transform: rotate(-8deg);
+      border: 3px solid var(--confident-ink);
+      background: var(--white);
+      border-radius: 14px;
+      padding: 0.4rem 0.8rem;
+      font-weight: 900;
+      box-shadow: 4px 4px 0px var(--confident-ink);
+      z-index: 10;
+    }
+
+    /* Keyboard shortcut overlay tooltip */
+    .kb-hint {
+      position: fixed;
+      bottom: 12px;
+      right: 16px;
+      background: rgba(12, 44, 72, 0.85);
+      color: #fff;
+      padding: 0.35rem 0.75rem;
+      border-radius: 8px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      pointer-events: none;
+      z-index: 99;
+      display: flex;
+      gap: 0.5rem;
+    }
+    .kb-key {
+      background: var(--friendly-yellow);
+      color: var(--confident-ink);
+      padding: 1px 6px;
+      border-radius: 4px;
+      font-weight: 800;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="deck-wrapper">
+    <!-- Top Header -->
+    <header class="pres-header">
+      <div class="logo-area">
+        <img src="../public/logo/logowithtextwhite.svg" alt="Onelish Logo" class="logo-img" onerror="this.src='/logo/logowithtextwhite.svg'" />
+        <span class="tag-badge">UKM PRESENTATION 2026</span>
+      </div>
+      
+      <div class="header-controls">
+        <button class="nav-icon-btn" onclick="toggleFullscreen()" title="Toggle Fullscreen">
+          <i class="ph-bold ph-corners-out"></i>
+        </button>
+        <button class="nav-icon-btn" onclick="toggleOverview()" title="Slide Thumbnails / Jump">
+          <i class="ph-bold ph-squares-four"></i>
+        </button>
+      </div>
+    </header>
+
+    <!-- Slides Stage -->
+    <main class="slide-viewport" id="viewport">
+
+      <!-- SLIDE 1: Title / Hero -->
+      <section class="slide active" id="slide-1">
+        <div class="grid-2">
+          <div>
+            <div class="hero-bubble">
+              <i class="ph-bold ph-sparkle"></i> Welcome to Satu University Bandung
+            </div>
+            <h1>Speak Boldly, Think Sharply.</h1>
+            <p style="font-size: 1.25rem; margin-bottom: 1.8rem; font-weight: 700; color: var(--confident-ink);">
+              Welcome to <span class="highlight-coral">Onelish</span> — English Club of Satu University. 
+              <br/><em>"It’s learning, but make it fun!"</em>
+            </p>
+            <div style="display: flex; gap: 1rem; align-items: center;">
+              <button class="btn btn-primary" onclick="nextSlide()">
+                Explore Presentation <i class="ph-bold ph-arrow-right"></i>
+              </button>
+              <a href="../src/app/page.js" class="btn btn-secondary" onclick="event.preventDefault(); goToSlide(2);">
+                <i class="ph-bold ph-info"></i> Quick Overview
+              </a>
+            </div>
+          </div>
+          <div style="position: relative; display: flex; justify-content: center; align-items: center;">
+            <div style="position: relative; width: 340px; height: 340px; background: var(--friendly-yellow); border: var(--border-brand-thick); border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: var(--shadow-neo-lg);">
+              <img src="../public/logo/logoQuote.svg" alt="Oniel Mascot" style="width: 82%; height: auto; transform: translateY(-5px);" onerror="this.src='/logo/logoQuote.svg'" />
+            </div>
+            <div class="sticker" style="top: 15px; right: 25px; transform: rotate(12deg); background: var(--expressive-coral); color: white;">
+              ✨ Fun & Active!
+            </div>
+            <div class="sticker" style="bottom: 25px; left: 15px; transform: rotate(-10deg); background: var(--grounded-teal); color: white;">
+              🎮 Gamified Learning
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 2: Vision & Mission 2026 -->
+      <section class="slide" id="slide-2">
+        <div style="text-align: center; margin-bottom: 2rem;">
+          <span class="badge badge-coral"><i class="ph-bold ph-compass"></i> Strategic Compass</span>
+          <h2 style="margin-top: 0.5rem;">Vision &amp; Mission 2026</h2>
+          <p>Empowering Satu University students through confidence and continuous learning.</p>
+        </div>
+
+        <div class="grid-2" style="align-items: stretch; gap: 2rem;">
+          <div class="card" style="background: #fff; border-top: 8px solid var(--expressive-coral);">
+            <div class="feature-icon-box bg-coral">
+              <i class="ph-bold ph-eye"></i>
+            </div>
+            <h2>Our Vision</h2>
+            <p style="font-size: 1.15rem; margin-top: 0.8rem; line-height: 1.6;">
+              To build a <strong>Career-Ready</strong> and <strong>Sustainable Community</strong> where learning English is perceived not as a daunting academic chore, but as a joyful pathway to global opportunities and self-expression.
+            </p>
+          </div>
+
+          <div class="card" style="background: #fff; border-top: 8px solid var(--grounded-teal);">
+            <div class="feature-icon-box bg-teal">
+              <i class="ph-bold ph-target"></i>
+            </div>
+            <h2>Our Mission</h2>
+            <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.8rem; margin-top: 0.8rem; font-weight: 700;">
+              <li style="display: flex; gap: 0.75rem; align-items: flex-start;">
+                <i class="ph-bold ph-check-circle" style="color: var(--grounded-teal); font-size: 1.4rem; flex-shrink: 0;"></i>
+                <span><strong>Inclusive &amp; Fun:</strong> Eradicate the anxiety of speaking English via supportive peer circles and gamification.</span>
+              </li>
+              <li style="display: flex; gap: 0.75rem; align-items: flex-start;">
+                <i class="ph-bold ph-check-circle" style="color: var(--grounded-teal); font-size: 1.4rem; flex-shrink: 0;"></i>
+                <span><strong>Flexible Shifts:</strong> Provide adaptable study shifts that seamlessly respect university class schedules.</span>
+              </li>
+              <li style="display: flex; gap: 0.75rem; align-items: flex-start;">
+                <i class="ph-bold ph-check-circle" style="color: var(--grounded-teal); font-size: 1.4rem; flex-shrink: 0;"></i>
+                <span><strong>Career Preparation:</strong> Deliver workshops on English interviews, resume reviews, and public speaking.</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 3: Why Join Onelish 2026 -->
+      <section class="slide" id="slide-3">
+        <div style="text-align: center; margin-bottom: 2rem;">
+          <span class="badge badge-yellow"><i class="ph-bold ph-star"></i> Core Pillars</span>
+          <h2 style="margin-top: 0.5rem;">Why Join Onelish 2026?</h2>
+          <p>Three unique advantages that set our English Club experience apart.</p>
+        </div>
+
+        <div class="grid-3">
+          <div class="card">
+            <div class="feature-icon-box bg-coral">
+              <i class="ph-bold ph-calendar-check"></i>
+            </div>
+            <h3>Weekly Shift System</h3>
+            <span class="badge badge-coral" style="margin-bottom: 0.8rem; font-size: 0.7rem;">Zero Clashes</span>
+            <p>
+              Worried about lecture conflicts? Choose the study shift that fits your timetable each week. Flexible, consistent, and stress-free.
+            </p>
+          </div>
+
+          <div class="card">
+            <div class="feature-icon-box bg-yellow">
+              <i class="ph-bold ph-game-controller"></i>
+            </div>
+            <h3>Gamified Learning</h3>
+            <span class="badge badge-yellow" style="margin-bottom: 0.8rem; font-size: 0.7rem;">Play &amp; Master</span>
+            <p>
+              Say goodbye to boring rote grammar drills! We play interactive tabletop games, Lyric Master, trivia, and engaging roleplay simulations.
+            </p>
+          </div>
+
+          <div class="card">
+            <div class="feature-icon-box bg-teal">
+              <i class="ph-bold ph-briefcase"></i>
+            </div>
+            <h3>Career-Ready Focus</h3>
+            <span class="badge badge-teal" style="margin-bottom: 0.8rem; font-size: 0.7rem;">Job Readiness</span>
+            <p>
+              Acquire pragmatic skills for the workforce — from public speaking and pitch presentations to conquering real job interviews in English.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 4: Interactive Games Showcase -->
+      <section class="slide" id="slide-4">
+        <div class="grid-2">
+          <div>
+            <span class="badge badge-blue"><i class="ph-bold ph-device-mobile"></i> Interactive Experience</span>
+            <h2 style="margin: 0.8rem 0;">Web Games &amp; Digital Hub</h2>
+            <p style="margin-bottom: 1.5rem;">
+              Onelish brings learning directly into the browser with interactive micro-games built specifically for our club members.
+            </p>
+
+            <div style="display: flex; flex-direction: column; gap: 1rem;">
+              <div class="card" style="padding: 1rem 1.25rem; display: flex; align-items: center; gap: 1rem;">
+                <div class="feature-icon-box bg-coral" style="margin-bottom: 0; width: 44px; height: 44px; font-size: 1.2rem;">
+                  <i class="ph-bold ph-music-notes"></i>
+                </div>
+                <div>
+                  <h3 style="font-size: 1.1rem; margin: 0;">Lyric Master</h3>
+                  <p style="font-size: 0.9rem; margin: 0;">Fill-in-the-blank listening games with real trending song clips.</p>
+                </div>
+              </div>
+
+              <div class="card" style="padding: 1rem 1.25rem; display: flex; align-items: center; gap: 1rem;">
+                <div class="feature-icon-box bg-yellow" style="margin-bottom: 0; width: 44px; height: 44px; font-size: 1.2rem;">
+                  <i class="ph-bold ph-cards"></i>
+                </div>
+                <div>
+                  <h3 style="font-size: 1.1rem; margin: 0;">Boardgame Station</h3>
+                  <p style="font-size: 0.9rem; margin: 0;">Weekly on-campus tabletop competitions and casual conversation clubs.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
+            <div class="card" style="width: 100%; max-width: 380px; text-align: center; background: var(--white); border-width: 4px;">
+              <div style="background: var(--friendly-yellow); padding: 1.5rem; border-radius: 16px; border: 3px solid var(--confident-ink); margin-bottom: 1rem; position: relative;">
+                <img src="../public/logo/oniel.svg" alt="Oniel Mascot" style="height: 120px; width: auto;" onerror="this.src='/logo/oniel.svg'" />
+                <div class="sticker" style="top: -10px; right: -10px; font-size: 0.75rem;">
+                  LEVEL UP!
+                </div>
+              </div>
+              <h3 style="font-size: 1.3rem;">Gamification Impact</h3>
+              <p style="font-size: 0.95rem;">+85% member confidence within 3 regular club sessions.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 5: Signature Programs & Events -->
+      <section class="slide" id="slide-5">
+        <div style="text-align: center; margin-bottom: 1.8rem;">
+          <span class="badge badge-teal"><i class="ph-bold ph-calendar"></i> Yearly Calendar</span>
+          <h2 style="margin-top: 0.5rem;">Signature Programs &amp; Events</h2>
+          <p>What can you expect throughout your journey in Onelish?</p>
+        </div>
+
+        <div class="grid-3">
+          <div class="card" style="position: relative;">
+            <div class="badge badge-blue" style="margin-bottom: 0.8rem;">
+              <i class="ph-bold ph-calendar-dots"></i> Bi-Monthly
+            </div>
+            <h3>Skill Up Seminars</h3>
+            <p style="margin-top: 0.5rem; font-size: 0.95rem;">
+              Master essential competencies like <em>"English for Job Interviews"</em> and <em>"Public Speaking 101"</em> with guest alumni and mentors.
+            </p>
+          </div>
+
+          <div class="card" style="position: relative;">
+            <div class="badge badge-coral" style="margin-bottom: 0.8rem;">
+              <i class="ph-bold ph-trophy"></i> Internal Cup
+            </div>
+            <h3>Onelish Internal Competition</h3>
+            <p style="margin-top: 0.5rem; font-size: 0.95rem;">
+              Fun, friendly challenges including spelling bees, debate rounds, speech contests, and boardgame championships.
+            </p>
+          </div>
+
+          <div class="card" style="position: relative;">
+            <div class="badge badge-teal" style="margin-bottom: 0.8rem;">
+              <i class="ph-bold ph-storefront"></i> Weekly
+            </div>
+            <h3>Fun-Raising Stand</h3>
+            <p style="margin-top: 0.5rem; font-size: 0.95rem;">
+              Drop by our campus Boardgame Station to chill, meet club friends, make new connections, and enjoy snack perks.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 6: Organizational Structure -->
+      <section class="slide" id="slide-6">
+        <div style="text-align: center; margin-bottom: 1.5rem;">
+          <span class="badge badge-blue"><i class="ph-bold ph-users-three"></i> Leadership</span>
+          <h2 style="margin-top: 0.4rem;">Organizational Structure 2026</h2>
+          <p>Dedicated officers steering the club forward.</p>
+        </div>
+
+        <div class="grid-6">
+          <div class="card" style="padding: 1rem; display: flex; align-items: center; gap: 0.8rem;">
+            <div class="feature-icon-box bg-coral" style="width: 42px; height: 42px; font-size: 1.1rem; margin: 0; flex-shrink: 0;">
+              <i class="ph-bold ph-crown"></i>
+            </div>
+            <div>
+              <div style="font-weight: 900; font-size: 0.95rem;">Russell Reece</div>
+              <div style="font-size: 0.8rem; color: var(--expressive-coral); font-weight: 700;">President</div>
+            </div>
+          </div>
+
+          <div class="card" style="padding: 1rem; display: flex; align-items: center; gap: 0.8rem;">
+            <div class="feature-icon-box bg-yellow" style="width: 42px; height: 42px; font-size: 1.1rem; margin: 0; flex-shrink: 0;">
+              <i class="ph-bold ph-book-open-text"></i>
+            </div>
+            <div>
+              <div style="font-weight: 900; font-size: 0.95rem;">Curriculum &amp; Learning</div>
+              <div style="font-size: 0.8rem; color: #b87515; font-weight: 700;">Academic Division</div>
+            </div>
+          </div>
+
+          <div class="card" style="padding: 1rem; display: flex; align-items: center; gap: 0.8rem;">
+            <div class="feature-icon-box bg-teal" style="width: 42px; height: 42px; font-size: 1.1rem; margin: 0; flex-shrink: 0;">
+              <i class="ph-bold ph-handshake"></i>
+            </div>
+            <div>
+              <div style="font-weight: 900; font-size: 0.95rem;">Partnerships &amp; Sponsor</div>
+              <div style="font-size: 0.8rem; color: var(--grounded-teal); font-weight: 700;">Business Development</div>
+            </div>
+          </div>
+
+          <div class="card" style="padding: 1rem; display: flex; align-items: center; gap: 0.8rem;">
+            <div class="feature-icon-box bg-blue" style="width: 42px; height: 42px; font-size: 1.1rem; margin: 0; flex-shrink: 0;">
+              <i class="ph-bold ph-users-three"></i>
+            </div>
+            <div>
+              <div style="font-weight: 900; font-size: 0.95rem;">Member Relations</div>
+              <div style="font-size: 0.8rem; color: var(--intelligent-blue); font-weight: 700;">Human Resource (HRD)</div>
+            </div>
+          </div>
+
+          <div class="card" style="padding: 1rem; display: flex; align-items: center; gap: 0.8rem;">
+            <div class="feature-icon-box bg-coral" style="width: 42px; height: 42px; font-size: 1.1rem; margin: 0; flex-shrink: 0;">
+              <i class="ph-bold ph-clipboard-text"></i>
+            </div>
+            <div>
+              <div style="font-weight: 900; font-size: 0.95rem;">Event Management</div>
+              <div style="font-size: 0.8rem; color: var(--expressive-coral); font-weight: 700;">Project Officer</div>
+            </div>
+          </div>
+
+          <div class="card" style="padding: 1rem; display: flex; align-items: center; gap: 0.8rem;">
+            <div class="feature-icon-box bg-yellow" style="width: 42px; height: 42px; font-size: 1.1rem; margin: 0; flex-shrink: 0;">
+              <i class="ph-bold ph-megaphone"></i>
+            </div>
+            <div>
+              <div style="font-weight: 900; font-size: 0.95rem;">Social Media &amp; Pubs</div>
+              <div style="font-size: 0.8rem; color: #b87515; font-weight: 700;">Public Relations &amp; Docs</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 7: Call to Action / Registration -->
+      <section class="slide" id="slide-7">
+        <div class="grid-2">
+          <div>
+            <span class="badge badge-coral"><i class="ph-bold ph-sparkle"></i> Registration Now Open</span>
+            <h1 style="margin: 0.8rem 0;">Be a Part of Onelish 2026!</h1>
+            <p style="margin-bottom: 1.5rem; font-size: 1.15rem;">
+              Don't miss the chance to improve your English confidence, make lifelong friendships, and unlock career opportunities.
+            </p>
+            
+            <div style="display: flex; flex-direction: column; gap: 0.8rem;">
+              <div style="display: flex; align-items: center; gap: 0.75rem; font-weight: 800;">
+                <div style="background: var(--friendly-yellow); padding: 0.4rem; border-radius: 50%; border: 2px solid var(--confident-ink);">
+                  <i class="ph-bold ph-check"></i>
+                </div>
+                <span>Open for all Satu University students</span>
+              </div>
+              <div style="display: flex; align-items: center; gap: 0.75rem; font-weight: 800;">
+                <div style="background: var(--friendly-yellow); padding: 0.4rem; border-radius: 50%; border: 2px solid var(--confident-ink);">
+                  <i class="ph-bold ph-check"></i>
+                </div>
+                <span>No prerequisite English level required</span>
+              </div>
+            </div>
+
+            <div style="margin-top: 2rem;">
+              <a href="https://forms.gle/Uqj5MMnpoZRrSvzb7" target="_blank" class="btn btn-primary" style="font-size: 1.1rem; padding: 0.8rem 2rem;">
+                <i class="ph-bold ph-paper-plane-tilt"></i> Register via Google Form
+              </a>
+            </div>
+          </div>
+
+          <div style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
+            <div class="card" style="text-align: center; background: #fff; padding: 1.75rem; max-width: 320px;">
+              <h3 style="color: var(--expressive-coral); margin-bottom: 0.75rem;">Scan to Register</h3>
+              <div style="position: relative; display: inline-block;">
+                <img src="../public/registration.png" alt="Registration QR Code" style="width: 190px; height: 190px; border-radius: 12px; border: var(--border-brand); display: block;" onerror="this.src='/registration.png'" />
+              </div>
+              <p style="font-size: 0.85rem; margin-top: 0.8rem; font-weight: 700;">
+                Point your phone camera to open registration form directly!
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 8: Thank You / Q&A -->
+      <section class="slide" id="slide-8">
+        <div style="text-align: center; max-width: 700px; margin: 0 auto;">
+          <div style="position: relative; display: inline-block; margin-bottom: 1.5rem;">
+            <div style="width: 140px; height: 140px; background: var(--friendly-yellow); border-radius: 50%; border: var(--border-brand-thick); display: flex; align-items: center; justify-content: center; margin: 0 auto; box-shadow: var(--shadow-neo);">
+              <img src="../public/logo/oniel.svg" alt="Oniel mascot" style="height: 100px; width: auto;" onerror="this.src='/logo/oniel.svg'" />
+            </div>
+            <div class="sticker" style="bottom: 0; right: -20px; background: var(--expressive-coral); color: white; font-size: 0.8rem;">
+              Thank You!
+            </div>
+          </div>
+
+          <h1 style="font-size: 3.2rem; margin-bottom: 0.5rem;">Questions &amp; Answers</h1>
+          <p style="font-size: 1.3rem; margin-bottom: 2rem; font-weight: 700;">
+            We'd love to hear your thoughts and queries. Speak freely!
+          </p>
+
+          <div style="display: flex; justify-content: center; gap: 1.25rem;">
+            <button class="btn btn-secondary" onclick="goToSlide(1)">
+              <i class="ph-bold ph-arrow-counter-clockwise"></i> Back to First Slide
+            </button>
+            <a href="https://forms.gle/Uqj5MMnpoZRrSvzb7" target="_blank" class="btn btn-primary">
+              <i class="ph-bold ph-hand-heart"></i> Join Today
+            </a>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- Bottom Presentation Controls -->
+    <footer class="pres-footer">
+      <div style="display: flex; align-items: center; gap: 0.5rem;">
+        <button class="btn btn-secondary btn-sm" id="prev-btn" onclick="prevSlide()">
+          <i class="ph-bold ph-caret-left"></i> Prev
+        </button>
+        <button class="btn btn-primary btn-sm" id="next-btn" onclick="nextSlide()">
+          Next <i class="ph-bold ph-caret-right"></i>
+        </button>
+      </div>
+
+      <div class="progress-track">
+        <div class="progress-bar" id="progress-bar"></div>
+      </div>
+
+      <div class="footer-btns">
+        <span class="slide-counter" id="slide-indicator">Slide 1 / 8</span>
+      </div>
+    </footer>
+  </div>
+
+  <div class="kb-hint">
+    <span>Keys: <span class="kb-key">←</span> / <span class="kb-key">→</span> or <span class="kb-key">Space</span> to Navigate | <span class="kb-key">F</span> Fullscreen</span>
+  </div>
+
+  <script>
+    const slides = document.querySelectorAll('.slide');
+    const totalSlides = slides.length;
+    let currentSlide = 0;
+
+    const progressBar = document.getElementById('progress-bar');
+    const slideIndicator = document.getElementById('slide-indicator');
+    const prevBtn = document.getElementById('prev-btn');
+    const nextBtn = document.getElementById('next-btn');
+
+    function updateDeck() {
+      slides.forEach((slide, index) => {
+        if (index === currentSlide) {
+          slide.classList.add('active');
+        } else {
+          slide.classList.remove('active');
+        }
+      });
+
+      const progress = ((currentSlide + 1) / totalSlides) * 100;
+      progressBar.style.width = progress + '%';
+      slideIndicator.textContent = `Slide ${currentSlide + 1} / ${totalSlides}`;
+
+      prevBtn.style.opacity = currentSlide === 0 ? '0.5' : '1';
+      prevBtn.style.pointerEvents = currentSlide === 0 ? 'none' : 'auto';
+    }
+
+    function nextSlide() {
+      if (currentSlide < totalSlides - 1) {
+        currentSlide++;
+        updateDeck();
+      }
+    }
+
+    function prevSlide() {
+      if (currentSlide > 0) {
+        currentSlide--;
+        updateDeck();
+      }
+    }
+
+    function goToSlide(slideNum) {
+      const idx = slideNum - 1;
+      if (idx >= 0 && idx < totalSlides) {
+        currentSlide = idx;
+        updateDeck();
+      }
+    }
+
+    function toggleFullscreen() {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen().catch(err => {
+          console.error(err);
+        });
+      } else {
+        if (document.exitFullscreen) {
+          document.exitFullscreen();
+        }
+      }
+    }
+
+    function toggleOverview() {
+      const target = prompt(`Jump to slide (1 to ${totalSlides}):`, (currentSlide + 1).toString());
+      if (target) {
+        const val = parseInt(target, 10);
+        if (!isNaN(val)) goToSlide(val);
+      }
+    }
+
+    // Keyboard navigation
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') {
+        e.preventDefault();
+        nextSlide();
+      } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+        e.preventDefault();
+        prevSlide();
+      } else if (e.key === 'f' || e.key === 'F') {
+        toggleFullscreen();
+      } else if (e.key === 'Home') {
+        goToSlide(1);
+      } else if (e.key === 'End') {
+        goToSlide(totalSlides);
+      }
+    });
+
+    // Touch swiping
+    let startX = 0;
+    const viewport = document.getElementById('viewport');
+    viewport.addEventListener('touchstart', (e) => {
+      startX = e.touches[0].clientX;
+    }, { passive: true });
+
+    viewport.addEventListener('touchend', (e) => {
+      const diffX = e.changedTouches[0].clientX - startX;
+      if (diffX > 50) {
+        prevSlide();
+      } else if (diffX < -50) {
+        nextSlide();
+      }
+    }, { passive: true });
+
+    // Initialize
+    updateDeck();
+  </script>
+</body>
+</html>

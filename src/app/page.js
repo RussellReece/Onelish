@@ -8,7 +8,8 @@ import {
   Briefcase,
   X,
   Megaphone,
-  Link as LinkIcon
+  Link as LinkIcon,
+  ProjectorScreen
 } from '@phosphor-icons/react';
 
 export default function Home() {
@@ -69,6 +70,18 @@ export default function Home() {
                   <GameController size={20} weight="bold" />
                   Play Now
                 </Link>
+                <a
+                  href="/Presentation/index.html"
+                  className="btn"
+                  style={{
+                    backgroundColor: 'var(--white)',
+                    color: 'var(--confident-ink)',
+                    boxShadow: '4px 4px 0px var(--confident-ink)',
+                  }}
+                >
+                  <ProjectorScreen size={20} weight="bold" />
+                  Presentation
+                </a>
               </div>
             </div>
 
